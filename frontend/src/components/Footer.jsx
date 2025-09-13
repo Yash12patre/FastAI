@@ -5,7 +5,7 @@ const Footer = () => {
     <footer class="px-6 md:px-16 lg:px-24 xl:px-32 pt-8 w-full text-gray-500">
     <div class="flex flex-col md:flex-row justify-between w-full gap-10 border-b border-gray-500/30 pb-6">
         <div class="md:max-w-96">
-            <img class="h-9" src={assets.logo}alt="dummyLogoDark"/>
+            <img className ="h-9" src={assets.logo}alt="dummyLogoDark"/>
             <p className="mt-6 text-sm">
             Experience the power of AI with QuickAi.
             Transform your content creation with our suite of premium AI tools. Write articles, generate images, and enhance your workflow..

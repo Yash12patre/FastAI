@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
@@ -11,9 +11,13 @@ import RemoveBackground from './pages/RemoveBackground'
 import RemoveObject from './pages/RemoveObject'
 import ReviewResume from './pages/ReviewResume'
 import Community from './pages/Community'
+import { useAuth } from '@clerk/clerk-react'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const {getToken}=useAuth();
+  useEffect(()=>{
+    getToken().then((token)=>console.log(token))
+  },[])
 
   return (
   <>
