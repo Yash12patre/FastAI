@@ -29,7 +29,7 @@ const WriteArticle = () => {
         </div>
         <p className='mt-6 text-sm font-medium'>Article Topic</p>
         <input type="text"
-        onClick={(e)=>setInput(e.target.value)} value={input}
+        onChange={(e)=>setInput(e.target.value)} value={input}
           className='w-full p-2 px-3 mt-2 outline-none text-sm rounded-md border border-gray-300'
           placeholder='The future of artificial intelligence is ...'
           required

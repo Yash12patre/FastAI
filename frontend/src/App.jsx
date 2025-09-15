@@ -16,7 +16,7 @@ import { useAuth } from '@clerk/clerk-react'
 function App() {
   const {getToken}=useAuth();
   useEffect(()=>{
-    getToken().then((token)=>console.log(token))
+    getToken().then((token)=>console.log(token)) 
   },[])
 
   return (
