@@ -6,13 +6,13 @@ import aiRouter from "./src/routes/aiRoutes.js";
 import connectCloudinary from "./src/utils/cloudinary.js";
 
 const app = express()
+
 await connectCloudinary()
 const PORT=3000;
 app.use(clerkMiddleware())
 
 app.use(cors());
 app.use(express.json());
-app.use(requireAuth())
 app.use('/api/ai', aiRouter)
 app.get('/',(req,res)=>res.send ("Server is live"));
 

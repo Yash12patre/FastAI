@@ -8,9 +8,37 @@ const GenerateImages = () => {
   const [selectedStyle , setSelectedStyle]=useState('General');
   const [input , setInput]=useState('');
   const [publish, setPublish]=useState(false)
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [generatedImage, setGeneratedImage] = useState("");
 
   const onSubmitHandler=async(e)=>{
     e.preventDefault();
+    setLoading(true);
+    setError("");
+    setGeneratedImage("");
+    try {
+      const res = await fetch("/api/ai/generate-image", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          prompt: `${input} (${selectedStyle})`,
+          publish
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setGeneratedImage(data.content);
+      } else {
+        setError(data.message || "Failed to generate image.");
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
   return (
     <div className='h-full overflow-y-scroll p-6 flex items-start flex-wrap gap-4 text-slate-700'>
@@ -60,11 +88,21 @@ const GenerateImages = () => {
 
         </div>
         <div className='flex-1 flex justify-center items-center'>
-          <div className='text-sm flex flex-col items-center gap-5 text-gray-400'>
-             <Image className='w-9 h-9 ' />
+          {loading ? (
+            <div className='text-sm flex flex-col items-center gap-5 text-gray-400'>
+              <Image className='w-9 h-9 animate-spin' />
+              <p>Generating image...</p>
+            </div>
+          ) : error ? (
+            <div className='text-red-500 text-center'>{error}</div>
+          ) : generatedImage ? (
+            <img src={generatedImage} alt="Generated" className='max-w-full max-h-80 rounded-lg border' />
+          ) : (
+            <div className='text-sm flex flex-col items-center gap-5 text-gray-400'>
+              <Image className='w-9 h-9 ' />
               <p className=''>Enter a topic and click “Generate IMage ” to get started</p>
-          </div>
-
+            </div>
+          )}
         </div>
 
       </div>
